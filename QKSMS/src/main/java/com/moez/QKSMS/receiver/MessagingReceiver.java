@@ -11,6 +11,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import com.moez.QKSMS.common.BlockedConversationHelper;
 import com.moez.QKSMS.common.ConversationPrefsHelper;
+import com.moez.QKSMS.common.FilterMessagesHelper;
 import com.moez.QKSMS.common.utils.PackageUtils;
 import com.moez.QKSMS.data.Message;
 import com.moez.QKSMS.service.NotificationService;
@@ -27,6 +28,7 @@ public class MessagingReceiver extends BroadcastReceiver {
 
     private String mAddress;
     private String mBody;
+    private Boolean isSpam;
     private long mDate;
 
     private Uri mUri;
@@ -57,10 +59,13 @@ public class MessagingReceiver extends BroadcastReceiver {
                 mBody = bodyText.toString();
             }
 
+
             mAddress = sms.getDisplayOriginatingAddress();
             mDate = sms.getTimestampMillis();
 
-            if (mPrefs.getBoolean(SettingsFragment.SHOULD_I_ANSWER, false) &&
+            isSpam = FilterMessagesHelper.matchToAnyFilter(mPrefs, mBody);
+
+            if (isSpam == false && mPrefs.getBoolean(SettingsFragment.SHOULD_I_ANSWER, false) &&
                     PackageUtils.isAppInstalled(mContext, "org.mistergroup.muzutozvednout")) {
 
                 ShouldIAnswerBinder shouldIAnswerBinder = new ShouldIAnswerBinder();
@@ -96,6 +101,10 @@ public class MessagingReceiver extends BroadcastReceiver {
     }
 
     private void insertMessageAndNotify() {
+        if (isSpam == true) {
+            return;
+        }
+
         mUri = SmsHelper.addMessageToInbox(mContext, mAddress, mBody, mDate);
 
         Message message = new Message(mContext, mUri);

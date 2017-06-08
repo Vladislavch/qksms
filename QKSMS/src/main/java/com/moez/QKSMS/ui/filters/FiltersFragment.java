@@ -1,5 +1,8 @@
 package com.moez.QKSMS.ui.filters;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
@@ -12,7 +15,9 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.moez.QKSMS.R;
@@ -37,6 +42,7 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
 
     @Bind(R.id.filters_list) RecyclerView mRecyclerView;
     @Bind(R.id.fab) FloatingActionButton mFab;
+    @Bind(R.id.button_filtered_list) Button buttonFiltered;
 
     private FiltersListAdapter  mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -96,6 +102,13 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
             showCreateFilterDialog();
         });
 
+        buttonFiltered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilteredMessages();
+            }
+        });
+
         mViewHasLoaded = true;
 
         return view;
@@ -103,7 +116,10 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
 
     @Override
     public void onItemClick(String object, View view) {
-        showDeleteFilterDialog(object);
+        ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(object, object);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getActivity(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -156,6 +172,11 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
             }
         });
         builder.show();
+    }
+
+
+    private void showFilteredMessages() {
+
     }
 
 

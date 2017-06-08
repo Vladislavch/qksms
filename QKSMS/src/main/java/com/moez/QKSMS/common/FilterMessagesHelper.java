@@ -17,6 +17,7 @@ import java.util.Set;
 public class FilterMessagesHelper {
 
     private static String kFilters = "UserFilters";
+    private static String kFilteredMessages = "UserFilteredMessages";
 
 
     public static void addFilter(SharedPreferences prefs, String pattern) {
@@ -61,5 +62,25 @@ public class FilterMessagesHelper {
         return false;
     }
 
+
+
+    public static void saveFilteredMessage(SharedPreferences prefs, String message, String address) {
+        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
+        filters.add(address + "\n" + message);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.putStringSet(FilterMessagesHelper.kFilteredMessages, filters).commit();
+    }
+
+    public static ArrayList<String>allFilteredMessages(SharedPreferences prefs) {
+        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
+        return new ArrayList<String>(filters);
+    }
+
+    public static void clearFilteredMessages(SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.remove(FilterMessagesHelper.kFilteredMessages).commit();
+    }
 
 }

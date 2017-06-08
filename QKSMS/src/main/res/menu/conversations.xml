@@ -23,4 +23,7 @@
     <item
         android:id="@+id/menu_donate"
         android:title="@string/menu_billing" />
+    <item
+        android:id="@+id/menu_filters"
+        android:title="Filters" />
 </menu>

@@ -64,7 +64,7 @@ public class FilterMessagesHelper {
 
 
 
-    public static void saveFilteredMessage(SharedPreferences prefs, String message, String address) {
+    public static void addFilteredMessage(SharedPreferences prefs, String address, String message) {
         Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
         filters.add(address + "\n" + message);
         SharedPreferences.Editor editor = prefs.edit();

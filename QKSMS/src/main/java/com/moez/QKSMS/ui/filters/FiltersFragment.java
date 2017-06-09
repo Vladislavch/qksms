@@ -1,5 +1,6 @@
 package com.moez.QKSMS.ui.filters;
 
+import android.app.FragmentManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -47,6 +48,7 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
     private FiltersListAdapter  mAdapter;
     private LinearLayoutManager mLayoutManager;
     private SharedPreferences   mPrefs;
+    private FilteredMessagesFragment mFilteredMessages;
 
     private boolean mViewHasLoaded = false;
 
@@ -176,7 +178,18 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
 
 
     private void showFilteredMessages() {
-
+        FragmentManager fm = getFragmentManager();
+        mFilteredMessages = (FilteredMessagesFragment) fm.findFragmentByTag(FilteredMessagesFragment.TAG);
+        if (mFilteredMessages == null) {
+            mFilteredMessages = FilteredMessagesFragment.newInstance(R.layout.fragment_filtered_messages);
+            fm.beginTransaction()
+                    .replace(R.id.content_frame, mFilteredMessages, FilteredMessagesFragment.TAG)
+                    .commit();
+        } else {
+            fm.beginTransaction()
+                    .show(mFilteredMessages)
+                    .commit();
+        }
     }
 
 

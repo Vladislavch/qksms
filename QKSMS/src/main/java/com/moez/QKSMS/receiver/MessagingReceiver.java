@@ -102,6 +102,7 @@ public class MessagingReceiver extends BroadcastReceiver {
 
     private void insertMessageAndNotify() {
         if (isSpam == true) {
+            FilterMessagesHelper.addFilteredMessage(mPrefs, mAddress, mBody);
             return;
         }
 

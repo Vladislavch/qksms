@@ -9,6 +9,8 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.moez.QKSMS.common.BlockedConversationHelper;
 import com.moez.QKSMS.common.ConversationPrefsHelper;
 import com.moez.QKSMS.common.FilterMessagesHelper;
@@ -102,6 +104,7 @@ public class MessagingReceiver extends BroadcastReceiver {
 
     private void insertMessageAndNotify() {
         if (isSpam == true) {
+            Toast.makeText(mContext, "Message blocked " + mBody, Toast.LENGTH_LONG).show();
             FilterMessagesHelper.addFilteredMessage(mPrefs, mAddress, mBody);
             return;
         }

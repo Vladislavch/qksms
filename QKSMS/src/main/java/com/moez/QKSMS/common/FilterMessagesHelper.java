@@ -22,27 +22,25 @@ public class FilterMessagesHelper {
 
     public static void addFilter(SharedPreferences prefs, String pattern) {
         Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilters, new HashSet<String>());
+        Set<String> messages = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
         filters.add(pattern);
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
+        editor.putStringSet(FilterMessagesHelper.kFilteredMessages, messages).commit();
         editor.putStringSet(FilterMessagesHelper.kFilters, filters).commit();
     }
 
 
     public static void removeFilter(SharedPreferences prefs, String pattern) {
         Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilters, new HashSet<String>());
+        Set<String> messages = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
         filters.remove(String.valueOf(pattern));
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
+        editor.putStringSet(FilterMessagesHelper.kFilteredMessages, messages).commit();
         editor.putStringSet(FilterMessagesHelper.kFilters, filters).commit();
     }
 
-
-    public static void clearFilters(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.remove(FilterMessagesHelper.kFilters).commit();
-    }
 
 
     public static ArrayList<String>allFilters(SharedPreferences prefs) {
@@ -65,22 +63,26 @@ public class FilterMessagesHelper {
 
 
     public static void addFilteredMessage(SharedPreferences prefs, String address, String message) {
-        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
-        filters.add(address + "\n" + message);
+        Set<String> messages = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
+        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilters, new HashSet<String>());
+        messages.add(address + "\n" + message);
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.putStringSet(FilterMessagesHelper.kFilteredMessages, filters).commit();
+        editor.putStringSet(FilterMessagesHelper.kFilteredMessages, messages).commit();
+        editor.putStringSet(FilterMessagesHelper.kFilters, filters).commit();
     }
 
     public static ArrayList<String>allFilteredMessages(SharedPreferences prefs) {
-        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
-        return new ArrayList<String>(filters);
+        Set<String> messages = prefs.getStringSet(FilterMessagesHelper.kFilteredMessages, new HashSet<String>());
+        return new ArrayList<String>(messages);
     }
 
     public static void clearFilteredMessages(SharedPreferences prefs) {
+        Set<String> filters = prefs.getStringSet(FilterMessagesHelper.kFilters, new HashSet<String>());
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
         editor.remove(FilterMessagesHelper.kFilteredMessages).commit();
+        editor.putStringSet(FilterMessagesHelper.kFilters, filters).commit();
     }
 
 }

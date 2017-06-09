@@ -38,7 +38,7 @@ public class FilteredMessagesFragment extends QKFragment implements RecyclerCurs
 
     @Bind(R.id.list_filtered_messages) RecyclerView mRecyclerView;
 
-//    private FiltersListAdapter  mAdapter;
+    private FilteredMessagesListAdapter  mAdapter;
     private LinearLayoutManager mLayoutManager;
     private SharedPreferences   mPrefs;
 
@@ -60,8 +60,8 @@ public class FilteredMessagesFragment extends QKFragment implements RecyclerCurs
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         setHasOptionsMenu(false);
 
-//        mAdapter = new FiltersListAdapter(mContext);
-//        mAdapter.setItemClickListener(this);
+        mAdapter = new FilteredMessagesListAdapter(mContext);
+        mAdapter.setItemClickListener(this);
         mLayoutManager = new LinearLayoutManager(mContext);
         mContext.setTitle("Filtered messages");
     }
@@ -74,7 +74,7 @@ public class FilteredMessagesFragment extends QKFragment implements RecyclerCurs
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
-//        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mViewHasLoaded = true;
 

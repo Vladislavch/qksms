@@ -29,6 +29,7 @@ import com.moez.QKSMS.enums.QKPreference;
 import com.moez.QKSMS.ui.ThemeManager;
 import com.moez.QKSMS.ui.base.QKFragment;
 import com.moez.QKSMS.ui.base.RecyclerCursorAdapter;
+import com.moez.QKSMS.ui.spam.FilteredMessagesFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
 
     @Bind(R.id.filters_list) RecyclerView mRecyclerView;
     @Bind(R.id.fab) FloatingActionButton mFab;
-    @Bind(R.id.button_filtered_list) Button buttonFiltered;
+//    @Bind(R.id.button_filtered_list) Button buttonFiltered;
 
     private FiltersListAdapter  mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -104,12 +105,12 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
             showCreateFilterDialog();
         });
 
-        buttonFiltered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFilteredMessages();
-            }
-        });
+//        buttonFiltered.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showFilteredMessages();
+//            }
+//        });
 
         mViewHasLoaded = true;
 
@@ -176,21 +177,21 @@ public class FiltersFragment extends QKFragment implements RecyclerCursorAdapter
         builder.show();
     }
 
-
-    private void showFilteredMessages() {
-        FragmentManager fm = getFragmentManager();
-        mFilteredMessages = (FilteredMessagesFragment) fm.findFragmentByTag(FilteredMessagesFragment.TAG);
-        if (mFilteredMessages == null) {
-            mFilteredMessages = FilteredMessagesFragment.newInstance(R.layout.fragment_filtered_messages);
-            fm.beginTransaction()
-                    .replace(R.id.content_frame, mFilteredMessages, FilteredMessagesFragment.TAG)
-                    .commit();
-        } else {
-            fm.beginTransaction()
-                    .show(mFilteredMessages)
-                    .commit();
-        }
-    }
+//
+//    private void showFilteredMessages() {
+//        FragmentManager fm = getFragmentManager();
+//        mFilteredMessages = (FilteredMessagesFragment) fm.findFragmentByTag(FilteredMessagesFragment.TAG);
+//        if (mFilteredMessages == null) {
+//            mFilteredMessages = FilteredMessagesFragment.newInstance(R.layout.fragment_filtered_messages);
+//            fm.beginTransaction()
+//                    .replace(R.id.content_frame, mFilteredMessages, FilteredMessagesFragment.TAG)
+//                    .commit();
+//        } else {
+//            fm.beginTransaction()
+//                    .show(mFilteredMessages)
+//                    .commit();
+//        }
+//    }
 
 
     private void onDeleteFilter(String patternToDelete) {

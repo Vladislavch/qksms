@@ -1,10 +1,9 @@
-package com.moez.QKSMS.ui.filters;
+package com.moez.QKSMS.ui.spam;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,16 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
 import com.moez.QKSMS.R;
-import com.moez.QKSMS.common.FilterMessagesHelper;
-import com.moez.QKSMS.common.LiveViewManager;
-import com.moez.QKSMS.common.utils.ColorUtils;
-import com.moez.QKSMS.enums.QKPreference;
-import com.moez.QKSMS.ui.ThemeManager;
 import com.moez.QKSMS.ui.base.QKFragment;
 import com.moez.QKSMS.ui.base.RecyclerCursorAdapter;
 

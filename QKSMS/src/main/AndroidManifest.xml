@@ -104,6 +104,10 @@
             android:screenOrientation="user"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.spam.SpamActivity"
+            android:screenOrientation="user"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.search.SearchActivity"
             android:screenOrientation="user"
             android:windowSoftInputMode="adjustResize" />

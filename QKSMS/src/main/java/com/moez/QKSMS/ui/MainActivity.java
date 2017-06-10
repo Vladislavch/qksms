@@ -47,6 +47,7 @@ import com.moez.QKSMS.ui.filters.FiltersActivity;
 import com.moez.QKSMS.ui.messagelist.MessageListActivity;
 import com.moez.QKSMS.ui.search.SearchActivity;
 import com.moez.QKSMS.ui.settings.SettingsFragment;
+import com.moez.QKSMS.ui.spam.SpamActivity;
 import com.moez.QKSMS.ui.welcome.WelcomeActivity;
 import org.ligi.snackengage.SnackEngage;
 import org.ligi.snackengage.snacks.BaseSnack;
@@ -184,6 +185,9 @@ public class MainActivity extends QKActivity {
             case R.id.menu_filters:
                 startActivity(FiltersActivity.class);
                 return true;
+            case R.id.menu_spam:
+                startActivity(SpamActivity.class);
+                return  true;
         }
 
         return super.onOptionsItemSelected(item);

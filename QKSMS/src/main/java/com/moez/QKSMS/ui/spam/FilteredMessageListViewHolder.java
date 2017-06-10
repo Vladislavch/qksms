@@ -1,4 +1,4 @@
-package com.moez.QKSMS.ui.filters;
+package com.moez.QKSMS.ui.spam;
 
 import android.view.View;
 
